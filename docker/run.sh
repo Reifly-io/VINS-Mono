@@ -38,10 +38,15 @@ docker run \
   -it \
   --rm \
   --net=host \
-  -e DISPLAY=host.docker.internal:0 \
+  -e NVIDIA_VISIBLE_DEVICES=all \
+  -e NVIDIA_DRIVER_CAPABILITIES=all \
+  -e DISPLAY \
+  -e QT_X11_NO_MITSHM=1 \
   -v ${VINS_MONO_DIR}:/root/catkin_ws/src/VINS-Mono/ \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  vins-mono:latest \
+  --runtime=nvidia \
+  -e NVIDIA_VISIBLE_DEVICES=0 \
+  ros:vins-mono \
   /bin/bash -c \
   "cd /root/catkin_ws/; \
   catkin config \
