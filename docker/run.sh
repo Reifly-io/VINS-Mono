@@ -38,8 +38,10 @@ docker run \
   -it \
   --rm \
   --net=host \
+  -e DISPLAY=host.docker.internal:0 \
   -v ${VINS_MONO_DIR}:/root/catkin_ws/src/VINS-Mono/ \
-  ros:vins-mono \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  vins-mono:latest \
   /bin/bash -c \
   "cd /root/catkin_ws/; \
   catkin config \
