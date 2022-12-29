@@ -67,10 +67,6 @@ Clone the repository and catkin_make:
 ## 3. Visual-Inertial Odometry and Pose Graph Reuse on Public datasets
 Download [EuRoC MAV Dataset](http://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets). Although it contains stereo cameras, we only use one camera. The system also works with [ETH-asl cla dataset](http://robotics.ethz.ch/~asl-datasets/maplab/multi_session_mapping_CLA/bags/). We take EuRoC as the example.
 
-To download one example dataset command below can be used:
-```bash
-wget http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag
-```
 **3.1 visual-inertial odometry and loop closure**
 
 3.1.1 Open three terminals, launch the vins_estimator , rviz and play the bag file respectively. Take MH_01 for example
@@ -152,6 +148,26 @@ cd ~/catkin_ws/src/VINS-Mono/docker
 make build
 ./run.sh LAUNCH_FILE_NAME   # ./run.sh euroc.launch
 ```
+
+**As a next step to run the rviz:**
+
+```
+- docker ps (to find the executed container id)
+- docker exec -it {docker_container_id} /bin/bash
+- source ~/catkin_ws/devel/setup.bash
+- roslaunch vins_estimator vins_rviz.launch
+```
+
+**As a next step to replay the data:**
+Be sure the data is moved inside the repo under whatever folder name you want
+
+```
+- docker ps (to find the executed container id)
+- docker exec -it {docker_container_id} /bin/bash
+- source ~/catkin_ws/devel/setup.bash
+- rosbag play /path_to_rosbag/*.bag
+```
+
 Note that the docker building process may take a while depends on your network and machine. After VINS-Mono successfully started, open another terminal and play your bag file, then you should be able to see the result. If you need modify the code, simply run `./run.sh LAUNCH_FILE_NAME` after your changes.
 
 
